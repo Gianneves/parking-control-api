@@ -2,6 +2,7 @@ package com.gianneves.parkingcontrol.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_PARKING_SPOT")
 public class ParkingSpotModel implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -20,6 +22,8 @@ public class ParkingSpotModel implements Serializable {
     private String licensePlateCar;
     @Column(nullable = false, length = 70)
     private String brandCar;
+    @Column(nullable = false, length = 70)
+    private String modelCar;
     @Column(nullable = false, length = 70)
     private String colorCar;
     @Column(nullable = false)
@@ -61,6 +65,14 @@ public class ParkingSpotModel implements Serializable {
 
     public void setBrandCar(String brandCar) {
         this.brandCar = brandCar;
+    }
+
+    public String getModelCar() {
+        return modelCar;
+    }
+
+    public void setModelCar(String modelCar) {
+        this.modelCar = modelCar;
     }
 
     public String getColorCar() {
