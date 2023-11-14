@@ -4,6 +4,8 @@ import com.gianneves.parkingcontrol.models.ParkingSpotModel;
 import com.gianneves.parkingcontrol.respositories.ParkingSpotRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +15,14 @@ import java.util.UUID;
 @Service
 public class ParkingSpotService {
 
-    @Autowired
-    ParkingSpotRepository parkingSpotRepository;
+    final ParkingSpotRepository parkingSpotRepository;
+
+    public ParkingSpotService(ParkingSpotRepository parkingSpotRepository) {
+        this.parkingSpotRepository = parkingSpotRepository;
+    }
 
     @Transactional
-    public Object save(ParkingSpotModel parkingSpotModel) {
+    public ParkingSpotModel save(ParkingSpotModel parkingSpotModel) {
         return parkingSpotRepository.save(parkingSpotModel);
     }
 
@@ -33,8 +38,8 @@ public class ParkingSpotService {
         return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
     }
 
-    public List<ParkingSpotModel> findAll() {
-        return  parkingSpotRepository.findAll();
+    public Page<ParkingSpotModel> findAll(Pageable pageable) {
+        return parkingSpotRepository.findAll(pageable);
     }
 
     public Optional<ParkingSpotModel> findById(UUID id) {
